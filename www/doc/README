@@ -1,0 +1,6 @@
+To install tracker you must do the next steps:
+
+1) cd openacs-4/packages/
+2) cat tracker/www/doc/acs-tcl.patch | patch
+3) go to apm and install the tracker package in the common way
+

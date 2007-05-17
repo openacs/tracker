@@ -1,0 +1,31 @@
+Index: acs-tcl/tcl/tcl-documentation-procs.tcl
+===================================================================
+RCS file: /cvsroot/openacs-4/packages/acs-tcl/tcl/tcl-documentation-procs.tcl,v
+retrieving revision 1.22
+diff -u -r1.22 tcl-documentation-procs.tcl
+--- acs-tcl/tcl/tcl-documentation-procs.tcl	10 Jan 2007 21:22:12 -0000	1.22
++++ acs-tcl/tcl/tcl-documentation-procs.tcl	17 May 2007 15:30:28 -0000
+@@ -235,6 +235,7 @@
+ #   optional, specified in the ad_page_contract call error
+ 
+ ad_proc -public ad_page_contract {
++    -notrack
+     {-form {}}
+     -properties
+     docstring
+@@ -1115,6 +1116,15 @@
+     global ad_page_contract_variables
+     set ad_page_contract_variables $apc_formals
+ 
++    #felix: Patch for tracker package to intercept tcl calls
++    if [ db_0or1row tracker_enabled "select 1 from apm_enabled_package_versions where package_key='tracker' and enabled_p='t'"] {
++	if { [info exists notrack] == 0 } { 
++	    tr_another_visit dynamic $ad_page_contract_variables
++	}
++    }
++    #felix: end of tracker's patch.
++
++
+     if { [ad_complaints_count] > 0 } {
+ 	if { [info exists return_errors] } {
+ 	    upvar 1 $return_errors error_list
