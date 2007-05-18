@@ -27,7 +27,7 @@ create table tracker_sessions (
 create table tracker_visits (
 	visit_id	integer constraint tracker_visits_pk primary key, 
 	visit_date	date,
-	url		varchar2(255),
+	url		varchar2(2000),
 	page_type	char(1) default('d') check(page_type in ('d','s')), 
 	request		integer,
 	session_id	integer,
