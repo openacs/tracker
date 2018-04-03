@@ -73,7 +73,7 @@ ad_proc -private tr_trace_static_page { conn why } {
     return filter_ok
 }
 
-if {[info exist tr_only_once] == 0} {
+if {[info exists tr_only_once] == 0} {
     ad_register_filter trace * *.html tr_trace_static_page 
     ad_register_filter trace * *.htm tr_trace_static_page 
     set tr_only_once 1
